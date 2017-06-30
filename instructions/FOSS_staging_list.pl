@@ -13,6 +13,13 @@
       "deploy_pkg_into" => "repo-dev",
    },
    {
+      "dir"         => "zm-timezones",
+      "ant_targets" => ["publish-local"],
+      "stage_cmd"   => sub {
+         System("(cd .. && rsync -az --relative zm-timezones $GLOBAL_BUILD_DIR/)");
+      },
+   },
+   {
       "dir"         => "junixsocket/junixsocket-native",
       "mvn_targets" => ["package"],
       "stage_cmd"   => sub {
@@ -370,13 +377,6 @@
       "ant_targets" => undef,
       "stage_cmd"   => sub {
          System("cp -f -r ../zm-jetty-conf $GLOBAL_BUILD_DIR");
-      },
-   },
-   {
-      "dir"         => "zm-timezones",
-      "ant_targets" => undef,
-      "stage_cmd"   => sub {
-         System("(cd .. && rsync -az --relative zm-timezones $GLOBAL_BUILD_DIR/)");
       },
    },
 );
